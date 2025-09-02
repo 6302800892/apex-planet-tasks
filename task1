@@ -1,0 +1,142 @@
+1. Create a Simple Webpage Using HTML
+The HTML file (index.html) provides the basic structure and content of the webpage.
+
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Webpage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>My First Webpage</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome!</h2>
+            <p>This is a simple paragraph created with **HTML**.</p>
+            <p>You can use different elements like headings, paragraphs, and images to structure your content.</p>
+            <img src="https://via.placeholder.com/300" alt="A placeholder image" class="responsive-image">
+        </section>
+
+        <section>
+            <h2>A List of Items</h2>
+            <ul>
+                <li>Item One</li>
+                <li>Item Two</li>
+                <li>Item Three</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Interactivity with JavaScript</h2>
+            <p>Click the button below to see a message.</p>
+            <button id="alert-button">Click Me</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Basic Web Dev</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+2. Style the Webpage Using CSS
+The CSS file (style.css) is linked to the HTML and adds styling to improve the visual appearance of the page.
+
+CSS
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+section {
+    background: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #5a7d9a;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #eee;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+}
+
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+}
+
+#alert-button {
+    background-color: #5a7d9a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#alert-button:hover {
+    background-color: #4a6a81;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333;
+    color: #fff;
+    margin-top: 2rem;
+}
+3. Add Basic JavaScript for Interactivity
+The JavaScript file (script.js) adds a simple interaction: an alert message that appears when the button is clicked.
+
+JavaScript
+
+// Get the button element by its ID
+const alertButton = document.getElementById('alert-button');
+
+// Add a 'click' event listener to the button
+alertButton.addEventListener('click', () => {
+    // Display an alert box when the button is clicked
+    alert('Hello from JavaScript! You clicked the button.');
+});
