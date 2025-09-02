@@ -1,0 +1,211 @@
+1. Apply Responsive Design Using Media Queries and Build an Image Carousel
+This index.html file creates the basic structure for the image carousel and a section to display data fetched from an API.
+
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced JS & Styling</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main>
+        <section class="carousel-container">
+            <h2>Interactive Image Carousel</h2>
+            <div class="carousel">
+                <div class="carousel-images">
+                    <img src="https://via.placeholder.com/600x400/FF5733/FFFFFF?text=Image+1" alt="Image 1" class="active">
+                    <img src="https://via.placeholder.com/600x400/33FF57/FFFFFF?text=Image+2" alt="Image 2">
+                    <img src="https://via.placeholder.com/600x400/3357FF/FFFFFF?text=Image+3" alt="Image 3">
+                </div>
+                <button class="prev-btn">&lt;</button>
+                <button class="next-btn">&gt;</button>
+            </div>
+        </section>
+        
+        <section class="api-container">
+            <h2>Fetch Data from an API</h2>
+            <div id="joke-container">
+                <p>Loading a random joke...</p>
+            </div>
+            <button id="fetch-joke-btn">Get Another Joke</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+The style.css file handles the styling of the carousel and makes the entire page responsive using media queries.
+
+CSS
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.carousel-container, .api-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    text-align: center;
+    color: #5a7d9a;
+}
+
+/* Carousel Styles */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5rem;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* API Section Styles */
+#joke-container {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+#fetch-joke-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 1.5rem auto 0;
+    padding: 10px;
+    background-color: #5a7d9a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#fetch-joke-btn:hover {
+    background-color: #4a6a81;
+}
+
+/* Responsive Design using Media Queries */
+@media (max-width: 768px) {
+    main {
+        padding: 0.5rem;
+    }
+    .carousel-container, .api-container {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .prev-btn, .next-btn {
+        padding: 8px;
+        font-size: 1.2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+2. Fetch Data from an API Using JavaScript
+The script.js file handles the interactivity. It manages the carousel's slide logic and fetches a random joke from the icanhazdadjoke.com API.
+
+JavaScript
+
+// Image Carousel Logic
+const carouselImages = document.querySelector('.carousel-images');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const images = document.querySelectorAll('.carousel-images img');
+
+let currentIndex = 0;
+
+function showImage(index) {
+    carouselImages.style.transform = `translateX(${-index * 100}%)`;
+}
+
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+});
+
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+});
+
+// API Fetch Logic (using async/await)
+const jokeContainer = document.getElementById('joke-container');
+const fetchJokeBtn = document.getElementById('fetch-joke-btn');
+
+async function fetchJoke() {
+    jokeContainer.innerHTML = '<p>Fetching new joke...</p>';
+    try {
+        const response = await fetch('https://icanhazdadjoke.com/', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        const data = await response.json();
+        jokeContainer.innerHTML = `<p>${data.joke}</p>`;
+    } catch (error) {
+        jokeContainer.innerHTML = '<p>Failed to fetch joke. Please try again.</p>';
+        console.error('Error fetching joke:', error);
+    }
+}
+
+// Initial fetch when the page loads
+fetchJoke();
+
+// Event listener for the button
+fetchJokeBtn.addEventListener('click', fetchJoke);
